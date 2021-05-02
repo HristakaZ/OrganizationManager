@@ -6,19 +6,25 @@ namespace OrganizationManager
     {
         static void Main(string[] args)
         {
-            /*TO DO: make the console app more interactive, ask the user for the input and enter input while the user wants to - 
-             probably with the state design pattern, if the user wants to write the organization's name, then the state is on,
-            if he doesn't want to, then the state is off, and based on the state, we will just cancel a while/do while loop*/
-            OrganizationComposite organization = new OrganizationComposite("Ico'S Company");
-            EmployeeLeaf employee = new EmployeeLeaf("Ico");
-            EmployeeLeaf secondEmployee = new EmployeeLeaf("Nqkuv Tam");
-            organization.Add(employee);
-            organization.Add(secondEmployee);
-            organization.Display();
-            Console.WriteLine();
-            organization.Remove(secondEmployee);
-            organization.Display();
-            Console.WriteLine();
+            /*TO DO: probably should implement the state pattern as well, so as to change the employee creation or 
+             organization creation state(when the user enters a company, we should switch to creating employees via the user 
+            input), might want to put this also in a facade, just for the app to be more clear*/
+            AbstractOrganizationBuilder abstractOrganizationBuilder = new OrganizationBuilder();
+            OrganizationCreationStrategy organizationCreationStrategy = new OrganizationCreation();
+            OrganizationComponent organizationComponent =
+                organizationCreationStrategy.Create(abstractOrganizationBuilder, "Ico'S Company");
+            organizationCreationStrategy = new EmployeeCreation();
+            abstractOrganizationBuilder = new EmployeeBuilder();
+            OrganizationComponent secondOrganizationComponent = organizationCreationStrategy.Create(abstractOrganizationBuilder,
+                "Pesho");
+            organizationComponent.Add(secondOrganizationComponent);
+            organizationComponent.Display();
+            OrganizationComponent thirdOrganizationComponent = organizationCreationStrategy.Create(abstractOrganizationBuilder,
+                "Gosho");
+            organizationComponent.Add(thirdOrganizationComponent);
+            organizationComponent.Display();
+            organizationComponent.Remove(thirdOrganizationComponent);
+            organizationComponent.Display();
         }
     }
 }

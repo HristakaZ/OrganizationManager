@@ -24,14 +24,15 @@ namespace OrganizationManager
         {
 
         }
-        public override void Add(OrganizationComponent teamComponent)
+        public override void Add(OrganizationComponent organizationComponent)
         {
-            organizations.Add(teamComponent);
+            organizations.Add(organizationComponent);
         }
 
         public override void Display()
         {
             Console.WriteLine("Organization Name: " + this.name);
+            Console.WriteLine("Employees:");
             foreach (OrganizationComponent organization in organizations)
             {
                 organization.Display();
@@ -49,7 +50,7 @@ namespace OrganizationManager
         {
 
         }
-        public override void Add(OrganizationComponent teamComponent)
+        public override void Add(OrganizationComponent organizationComponent)
         {
             Console.WriteLine("Cannot make operations on a leaf node(Employee).");
         }
@@ -59,7 +60,7 @@ namespace OrganizationManager
             Console.WriteLine("Employee Name: " + this.name);
         }
 
-        public override void Remove(OrganizationComponent teamComponent)
+        public override void Remove(OrganizationComponent organizationComponent)
         {
             Console.WriteLine("Cannot make operations on a leaf node(Employee).");
         }
