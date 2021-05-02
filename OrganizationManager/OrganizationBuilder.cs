@@ -8,23 +8,23 @@ namespace OrganizationManager
 {
     public abstract class AbstractOrganizationBuilder
     {
-        protected OrganizationComponent organizationComponent;
-        public abstract OrganizationComponent BuildOrganizationComponent(string name);
+        protected Component component;
+        public abstract Component BuildComponent(string name);
     }
     public class OrganizationBuilder : AbstractOrganizationBuilder
     {
-        public override OrganizationComponent BuildOrganizationComponent(string name)
+        public override Component BuildComponent(string name)
         {
-            organizationComponent = new OrganizationComposite(name);
-            return organizationComponent;
+            component = new OrganizationComposite(name);
+            return component;
         }
     }
     public class EmployeeBuilder : AbstractOrganizationBuilder
     {
-        public override OrganizationComponent BuildOrganizationComponent(string name)
+        public override Component BuildComponent(string name)
         {
-            organizationComponent = new EmployeeLeaf(name);
-            return organizationComponent;
+            component = new EmployeeLeaf(name);
+            return component;
         }
     }
 }

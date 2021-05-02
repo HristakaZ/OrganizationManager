@@ -10,21 +10,25 @@ namespace OrganizationManager
              organization creation state(when the user enters a company, we should switch to creating employees via the user 
             input), might want to put this also in a facade, just for the app to be more clear*/
             AbstractOrganizationBuilder abstractOrganizationBuilder = new OrganizationBuilder();
-            OrganizationCreationStrategy organizationCreationStrategy = new OrganizationCreation();
-            OrganizationComponent organizationComponent =
-                organizationCreationStrategy.Create(abstractOrganizationBuilder, "Ico'S Company");
-            organizationCreationStrategy = new EmployeeCreation();
+            CreationStrategy creationStrategy = new OrganizationCreationStrategy();
+            Component company = creationStrategy.Create(abstractOrganizationBuilder, "Ico'S Company");
+            Component secondCompany = creationStrategy.Create(abstractOrganizationBuilder, "Tosho'S Company");
+            creationStrategy = new EmployeeCreationStrategy();
             abstractOrganizationBuilder = new EmployeeBuilder();
-            OrganizationComponent secondOrganizationComponent = organizationCreationStrategy.Create(abstractOrganizationBuilder,
-                "Pesho");
-            organizationComponent.Add(secondOrganizationComponent);
-            organizationComponent.Display();
-            OrganizationComponent thirdOrganizationComponent = organizationCreationStrategy.Create(abstractOrganizationBuilder,
-                "Gosho");
-            organizationComponent.Add(thirdOrganizationComponent);
-            organizationComponent.Display();
-            organizationComponent.Remove(thirdOrganizationComponent);
-            organizationComponent.Display();
+            Component firstEmployee = creationStrategy.Create(abstractOrganizationBuilder, "Pesho");
+            company.Add(firstEmployee);
+
+            company.Display();
+
+            secondCompany.Add(firstEmployee);
+            secondCompany.Display();
+            Component secondEmployee = creationStrategy.Create(abstractOrganizationBuilder, "Gosho");
+            company.Add(secondEmployee);
+            company.Display();
+            secondCompany.Add(secondEmployee);
+            company.Remove(secondEmployee);
+            company.Display();
+            secondCompany.Display();
         }
     }
 }

@@ -6,51 +6,52 @@ using System.Threading.Tasks;
 
 namespace OrganizationManager
 {
-    public abstract class OrganizationComponent
+    public abstract class Component
     {
         protected string name;
-        public OrganizationComponent(string name)
+        public Component(string name)
         {
             this.name = name;
         }
-        public abstract void Add(OrganizationComponent organizationComponent);
-        public abstract void Remove(OrganizationComponent organizationComponent);
+        public abstract void Add(Component component);
+        public abstract void Remove(Component component);
         public abstract void Display();
     }
-    public class OrganizationComposite : OrganizationComponent
+    public class OrganizationComposite : Component
     {
-        private List<OrganizationComponent> organizations = new List<OrganizationComponent>();
+        private List<Component> components = new List<Component>();
         public OrganizationComposite(string name) : base(name)
         {
 
         }
-        public override void Add(OrganizationComponent organizationComponent)
+        public override void Add(Component component)
         {
-            organizations.Add(organizationComponent);
+            components.Add(component);
         }
 
         public override void Display()
         {
             Console.WriteLine("Organization Name: " + this.name);
             Console.WriteLine("Employees:");
-            foreach (OrganizationComponent organization in organizations)
+            foreach (Component component in components)
             {
-                organization.Display();
+                component.Display();
             }
+            Console.WriteLine("==================");
         }
 
-        public override void Remove(OrganizationComponent organizationComponent)
+        public override void Remove(Component component)
         {
-            organizations.Remove(organizationComponent);
+            components.Remove(component);
         }
     }
-    public class EmployeeLeaf : OrganizationComponent
+    public class EmployeeLeaf : Component
     {
         public EmployeeLeaf(string name) : base(name)
         {
 
         }
-        public override void Add(OrganizationComponent organizationComponent)
+        public override void Add(Component component)
         {
             Console.WriteLine("Cannot make operations on a leaf node(Employee).");
         }
@@ -60,7 +61,7 @@ namespace OrganizationManager
             Console.WriteLine("Employee Name: " + this.name);
         }
 
-        public override void Remove(OrganizationComponent organizationComponent)
+        public override void Remove(Component component)
         {
             Console.WriteLine("Cannot make operations on a leaf node(Employee).");
         }
